@@ -18,3 +18,10 @@ use Dusterio\LumenPassport\LumenPassport;
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+
+$router->post('/login', 'AuthController@login');
+
+$router->group(['middleware' => 'auth:api'], function ($router) {
+    $router->post('/logout', 'AuthController@logout');
+});
