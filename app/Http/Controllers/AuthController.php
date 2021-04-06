@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\UserRegisteredEvent;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
@@ -30,8 +32,17 @@ class AuthController extends Controller
 
             $user = User::where('email', $request->email)->first();
             if (!$user->is_verified) {
+
+                $token = Uuid::uuid4()->toString();
+
+                $user->mail_token = $token;
+                $user->save();
+
+                $url = env('APP_URL') . "/confirm-account/" . $token;
+
+                event(new UserRegisteredEvent($url, $user));
+
                 throw new Exception("Conta não ativa, acesse o link de validação enviado para seu email.");
-                // TODO: enviar email de validação
             }
 
             $req = Request::create('/oauth/token', 'POST', [
