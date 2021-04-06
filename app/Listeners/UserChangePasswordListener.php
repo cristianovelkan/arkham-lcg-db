@@ -2,12 +2,12 @@
 
 namespace App\Listeners;
 
-use App\Events\UserRegisteredEvent;
-use App\Mail\UserConfirmationMail;
+use App\Events\UserChangePasswordEvent;
+use App\Mail\UserChangePasswordMail;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Mail;
 
-class UserRegisteredListener implements ShouldQueue
+class UserChangePasswordListener implements ShouldQueue
 {
     public $connection = 'database';
     public $delay = '10';
@@ -24,13 +24,13 @@ class UserRegisteredListener implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  \App\Events\UserRegisteredEvent  $event
+     * @param  \App\Events\UserChangePasswordEvent  $event
      * @return void
      */
-    public function handle(UserRegisteredEvent $event)
+    public function handle(UserChangePasswordEvent $event)
     {
         Mail::to($event->user->email)->send(
-            new UserConfirmationMail($event->url, $event->user)
+            new UserChangePasswordMail($event->url, $event->user)
         );
     }
 }

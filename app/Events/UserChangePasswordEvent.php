@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-class UserRegisteredEvent extends Event
+class UserChangePasswordEvent extends Event
 {
     public $url;
     public $user;

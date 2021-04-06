@@ -1,17 +1,22 @@
 @component('mail::message')
 # Olá, {{ $user->name }}
 
-Bem-vindo,
+Você solicitou a recuperação de sua senha,
 
-Clique no link abaixo para confirmar sua conta.
+Clique no link abaixo para confirmar sua identidade e criar uma nova senha.
 
 @component('mail::button', ['url' => $url])
-Confirmar conta
+Recuperar Senha
 @endcomponent
 
 Caso o link acima não funcionar copie o código e cole no seu navegador
  [{{ $url  }}]({{ $url }}),
 
 <br>
+
+Caso você não tenha feito esta solicitação, apenas ignore este email.
+
+<br>
+
 {{ env('APP_NAME') }}
 @endcomponent
