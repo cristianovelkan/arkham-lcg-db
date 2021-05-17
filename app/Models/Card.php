@@ -85,4 +85,14 @@ class Card extends Model
     {
         return $this->belongsTo(CardClass::class, 'card_class_id');
     }
+
+    public function cardTraits()
+    {
+        return $this->belongsToMany(CardTrait::class, 'card_card_trait', 'card_id', 'card_trait_id');
+    }
+
+    public function cardIcons()
+    {
+        return $this->belongsToMany(CardIcon::class, 'card_card_icon', 'card_id', 'card_icon_id');
+    }
 }
