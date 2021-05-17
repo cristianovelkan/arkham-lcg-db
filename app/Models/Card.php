@@ -54,11 +54,35 @@ class Card extends Model
         "is_shroud_by_investigator",
         "xp",
 
-        "card_type_id"
+        "card_type_id",
+        "card_set_id",
+        "card_encounter_id",
+        "card_slot_id",
+        "card_class_id",
     ];
 
     public function cardType()
     {
         return $this->belongsTo(CardType::class, 'card_type_id');
+    }
+
+    public function cardSet()
+    {
+        return $this->belongsTo(CardSet::class, 'card_set_id');
+    }
+
+    public function cardEncounter()
+    {
+        return $this->belongsTo(CardEncouter::class, 'card_encounter_id');
+    }
+
+    public function cardSlot()
+    {
+        return $this->belongsTo(CardSlot::class, 'card_slot_id');
+    }
+
+    public function cardClass()
+    {
+        return $this->belongsTo(CardClass::class, 'card_class_id');
     }
 }
