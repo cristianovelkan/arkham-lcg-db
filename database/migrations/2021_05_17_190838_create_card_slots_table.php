@@ -20,7 +20,7 @@ class CreateCardSlotsTable extends Migration
         });
 
         Schema::table('cards', function (Blueprint $table) {
-            $table->integer('card_slot_id')->unsigned();
+            $table->integer('card_slot_id')->unsigned()->nullable();
         });
     }
 
