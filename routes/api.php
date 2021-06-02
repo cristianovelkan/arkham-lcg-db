@@ -3,6 +3,7 @@
 /** @var \Laravel\Lumen\Routing\Router $router */
 
 use Dusterio\LumenPassport\LumenPassport;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,11 @@ $router->get('/cards', 'CardController@index'); // lista todas as cartas/items
 $router->get('/cards/{id}', 'CardController@show'); // listar somente um card com o id enviado
 
 $router->group(['middleware' => 'auth:api'], function ($router) {
+    $router->get('/me', function (Request $request) {
+        return [
+            'user' => $request->user()
+        ];
+    });
     $router->post('/logout', 'AuthController@logout');
 
     $router->group(['prefix' => 'cards'], function ($router) {
